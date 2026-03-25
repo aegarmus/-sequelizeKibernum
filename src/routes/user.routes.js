@@ -7,5 +7,9 @@ router.post('/users', UserController.create)
 router.get('/users', UserController.findAll)
 router.get('/users/:id', UserController.findById)
 router.get('/users/email/:email', UserController.findByEmail)
+router.put('/users/:id', UserController.update)
+router.delete('/users/:id', UserController.delete)
+router.delete('/users/admin/:id', UserController.permaDelete)
+router.patch('/users/:id', UserController.restore)
 
 export default router

@@ -53,4 +53,53 @@ export class UserController{
             next(error)
         }
     }
+
+    static async update(req, res, next) {
+        try {
+            const data = await UserService.update(req.params.id, req.body)
+            res.status(200).json({
+                message: 'Usuario actualizado con éxito',
+                statudCode: 200,
+                data
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async delete(req, res, next) {
+        try {
+            await UserService.delete(req.params.id)
+            res.status(200).json({
+                message: 'Usuario eliminado con éxito',
+                statusCode: 200
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async restore(req, res, next) {
+        try {
+            await UserService.restore(req.params.id)
+            res.status(200).json({
+                message: 'Usuario restaurado con éxito',
+                statusCode: 200
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async permaDelete(req, res, next) {
+        try {
+            await UserService.permaDelete(req.params.id)
+            res.status(200).json({
+                message: 'Usuario eliminado permanentemente con éxito',
+                statusCode: 200
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
