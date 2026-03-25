@@ -3,6 +3,8 @@ import { env } from '../../config/env.config.js'
 import { Logger } from '../../utils/logger.js'
 import { httpLogger } from '../../middleware/logger.middleware.js'
 import { DB } from '../db/DB.service.js'
+import userRouter from '../../routes/user.routes.js'
+import { errorHandler } from '../../middleware/error.middleware.js'
 
 const { server } = env
 
@@ -27,9 +29,10 @@ export class Server {
             this.app.use(httpLogger)
         }
 
+        this.app.use('/api/v1', userRouter)
+        this.app.use(errorHandler)
 
         try {
-
             await DB.init()
             this.app.listen(this.port, () => {
                 this.logger.info(`Servidor corriendo en el puerto ${this.port}`)
