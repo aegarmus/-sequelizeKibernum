@@ -27,4 +27,17 @@ export class UserController{
             next(error)
         }
     }
+
+    static async findById(req, res, next) {
+        try {
+            const data = await UserService.findById(req.params.id)
+            res.status(200).json({
+                message: 'Usuario encontrado con éxito',
+                statusCode: 200,
+                data
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }

@@ -40,4 +40,17 @@ export class UserService {
             throw new UserError('Error al encontrar los usuarios')
         }
     }
+
+    static async findById(id) {
+        try {
+            this.logger.info('Inicializando servicio de obtención de usuario por ID')
+            const user = await User.findByPk(id)
+            this.logger.debug('Usuario encontrado con éxito')
+
+            return user
+        } catch (error) {
+            this.logger.error(`Error al encontrar el usuario con id: ${id} - ${error.message}`)
+            throw new UserError('Error al encontrar el usuario')
+        }
+    }
 }
