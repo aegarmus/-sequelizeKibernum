@@ -40,4 +40,17 @@ export class UserController{
             next(error)
         }
     }
+
+    static async findByEmail(req, res, next) {
+        try {
+            const data = await UserService.findByEmail(req.params.email)
+            res.status(200).json({
+                message: "Usuario encontrado con éxito",
+                statusCode: 200,
+                data,
+            });
+        } catch (error) {
+            next(error)
+        }
+    }
 }

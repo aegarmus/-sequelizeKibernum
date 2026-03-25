@@ -44,12 +44,30 @@ export class UserService {
     static async findById(id) {
         try {
             this.logger.info('Inicializando servicio de obtención de usuario por ID')
-            const user = await User.findByPk(id)
+            const user = await User.findByPk(id, {
+                attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+            });
+            this.logger.debug('Usuario encontrado con éxito')
+            
+            return user
+        } catch (error) {
+            this.logger.error(`Error al encontrar el usuario con id: ${id} - ${error.message}`)
+            throw new UserError('Error al encontrar el usuario')
+        }
+    }
+    
+    static async findByEmail(email) {
+        try {
+            this.logger.info('Inicializando servicio de obtención de usuario por email')
+            const user = await User.findOne({
+                where: { email },
+                attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
+            })
             this.logger.debug('Usuario encontrado con éxito')
 
             return user
         } catch (error) {
-            this.logger.error(`Error al encontrar el usuario con id: ${id} - ${error.message}`)
+            this.logger.error(`Error al encontrar el usuario con email: ${email} - ${error.message}`)
             throw new UserError('Error al encontrar el usuario')
         }
     }
