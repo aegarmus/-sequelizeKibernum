@@ -1,4 +1,4 @@
-import { Server } from "./service/server/bootstrap.service.js";
+import { Server } from "./service/server/server.service.js";
 
 
 Server.bootstrap({

@@ -2,6 +2,7 @@ import express, { urlencoded } from 'express'
 import { env } from '../../config/env.config.js'
 import { Logger } from '../../utils/logger.js'
 import { httpLogger } from '../../middleware/logger.middleware.js'
+import { DB } from '../db/DB.service.js'
 
 const { server } = env
 
@@ -11,7 +12,7 @@ export class Server {
     static port = server.port
     static logger = new Logger('SERVER')
 
-    static bootstrap(config = {}) {
+    static async bootstrap(config = {}) {
         server.environment === 'PROD'
             ? this.logger.info('Servidor inicalizando en producción')
             : this.logger.info('Servidor inicializando en modo Desarrollo')
@@ -28,11 +29,13 @@ export class Server {
 
 
         try {
+
+            await DB.init()
             this.app.listen(this.port, () => {
                 this.logger.info(`Servidor corriendo en el puerto ${this.port}`)
             })
         } catch (error) {
-            this.logger.error('Error al inicializar el servidor', error)
+            this.logger.error(`Error al inicializar el servidor: ${error.message}`, error.message)
             throw new Error('Errro al arrancar el servidor')
         }
     }
