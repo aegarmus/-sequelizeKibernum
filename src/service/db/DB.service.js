@@ -1,4 +1,6 @@
 import { dbConfig } from "../../config/db.config.js";
+import { defineAssociation } from "../../models/associations/UserRole.association.js";
+import { initRole } from "../../models/Role.model.js";
 import { initUser } from "../../models/User.model.js";
 import { DBError } from "../../utils/errors.util.js";
 import { Logger } from "../../utils/logger.js";
@@ -34,6 +36,13 @@ export class DB {
             this.logger.debug('Inicializando Modelo User')
             initUser(config)
             this.logger.debug('User inicializado con éxito')
+            this.logger.debug('Inicializando Modelo Role')
+            initRole(config)
+            this.logger.debug('Role inicializado con éxito')
+
+            this.logger.debug('Incializando asociaciones')
+            defineAssociation()
+            this.logger.debug('Asociaciones creadas')
         } catch (error) {
             this.logger.error(`Error al inicializar los módelos: ${error.message}`);
             throw new DBError('Error al inicalizar los modelos')

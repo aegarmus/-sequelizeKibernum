@@ -26,9 +26,9 @@ export class UserError extends AppError {
     }
 }
 
-export class OrderError extends AppError {
+export class RoleError extends AppError {
     constructor(message, details, statusCode) {
-        super(message || 'Error al procesar la entidad Order', statusCode || 500, details)
+        super(message || 'Error al procesar la entidad Role', statusCode || 500, details)
     }
 }
 

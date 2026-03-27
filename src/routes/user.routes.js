@@ -3,13 +3,13 @@ import { UserController } from '../controller/User.controller.js';
 
 const router = Router();
 
-router.post('/users', UserController.create)
-router.get('/users', UserController.findAll)
-router.get('/users/:id', UserController.findById)
-router.get('/users/email/:email', UserController.findByEmail)
-router.put('/users/:id', UserController.update)
-router.delete('/users/:id', UserController.delete)
-router.delete('/users/admin/:id', UserController.permaDelete)
-router.patch('/users/:id', UserController.restore)
+router.post('/', UserController.create)
+router.get('/', UserController.findAll)
+router.get('/:id', UserController.findById)
+router.get('/email/:email', UserController.findByEmail)
+router.put('/:id', UserController.update)
+router.delete('/:id', UserController.delete)
+router.delete('/admin/:id', UserController.permaDelete)
+router.patch('/:id', UserController.restore)
 
 export default router
